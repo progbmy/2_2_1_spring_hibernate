@@ -10,20 +10,9 @@ public class User {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
 
-
-
    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
    @PrimaryKeyJoinColumn
    private Car car;
-
-   public Car getCar() {
-      return car;
-   }
-
-   public void setCar(Car car) {
-      this.car = car;
-   }
-
 
    @Column(name = "name")
    private String firstName;
@@ -73,4 +62,14 @@ public class User {
    public void setEmail(String email) {
       this.email = email;
    }
+// Add
+   public Car getCar() {
+      return car;
+   }
+
+   public void setCar(Car car) {
+      this.car = car;
+   }
+
+
 }
