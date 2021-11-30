@@ -1,8 +1,10 @@
 package hiber;
 
 import hiber.config.AppConfig;
+import hiber.dao.UserDao;
 import hiber.model.Car;
 import hiber.model.User;
+import hiber.service.CarService;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -15,13 +17,29 @@ public class MainApp {
             new AnnotationConfigApplicationContext(AppConfig.class);
 
       UserService userService = context.getBean(UserService.class);
-//      CarService carService = context.getBean(CarService.class);
+      CarService carService = context.getBean(CarService.class);
 
-      userService.add(new User("User1", "Lastname1", "user1@mail.ru"));
-      userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
-      userService.add(new User("User3", "Lastname3", "user3@mail.ru"));
-      userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
+      Car car1 = new Car("Audi", 80);
+      Car car2 = new Car("Bmw", 5);
+      Car car3 = new Car("Mitsubishi", 9);
+      Car car4 = new Car("Opel", 10);
 
+      carService.add(car1);
+      carService.add(car2);
+      carService.add(car3);
+      carService.add(car4);
+      List<Car> carList = carService.listCars();
+
+
+      userService.add(new User("User1", "Lastname1", "user1@mail.ru", carList.get(0)));
+      userService.add(new User("User2", "Lastname2", "user2@mail.ru", carList.get(1)));
+      userService.add(new User("User3", "Lastname3", "user3@mail.ru", carList.get(2)));
+      userService.add(new User("User4", "Lastname4", "user4@mail.ru", carList.get(3)));
+
+      User userCar = userService.resultUserCar("Audi", 80);
+      System.out.println("Имя: " + userCar.getFirstName() + "\nФамилия: "
+              + userCar.getLastName() + "\nEmail: " + userCar.getEmail());
+      System.out.println("***********************************************");
 
 
 
@@ -31,11 +49,8 @@ public class MainApp {
          System.out.println("First Name = "+user.getFirstName());
          System.out.println("Last Name = "+user.getLastName());
          System.out.println("Email = "+user.getEmail());
-         System.out.println("Model = " + user.getCar());
-         System.out.println("Series = " + user.getCar());
          System.out.println();
       }
-
       context.close();
    }
 }

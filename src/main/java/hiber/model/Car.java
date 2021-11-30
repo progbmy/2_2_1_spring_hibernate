@@ -6,14 +6,9 @@ import javax.persistence.*;
 @Table(name = "car")
 public class Car {
     @Id
-    @Column(name = "user_id")
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
-    private User user;
-
 
     @Column(name= "model")
     private String model;
@@ -37,7 +32,6 @@ public class Car {
         this.id = id;
     }
 
-// Add
     public String getModel() {
         return model;
     }
