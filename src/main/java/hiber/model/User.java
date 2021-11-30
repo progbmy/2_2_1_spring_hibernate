@@ -10,6 +10,21 @@ public class User {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
 
+
+
+   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+   @PrimaryKeyJoinColumn
+   private Car car;
+
+   public Car getCar() {
+      return car;
+   }
+
+   public void setCar(Car car) {
+      this.car = car;
+   }
+
+
    @Column(name = "name")
    private String firstName;
 
