@@ -7,12 +7,15 @@ import javax.persistence.*;
 public class User {
 
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+//   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
 
-   @OneToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name = "car_id", referencedColumnName = "id")
+   @OneToOne(fetch = FetchType.LAZY)
+//   @JoinColumn(name = "car_id", referencedColumnName = "id")
+   @JoinColumn(name = "id", referencedColumnName = "id")
 
+// -------------
+   @MapsId
    private Car car;
 
    @Column(name = "name")
@@ -25,12 +28,6 @@ public class User {
    private String email;
 
    public User() {}
-   
-   public User(String firstName, String lastName, String email) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.email = email;
-   }
 
    public User(String firstName, String lastName, String email, Car car) {
       this.firstName = firstName;
